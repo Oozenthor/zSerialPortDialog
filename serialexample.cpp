@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <QPlainTextEdit>
 #include "serialexample.h"
 
 SerialExample::SerialExample(QWidget *parent) :
@@ -7,13 +8,14 @@ SerialExample::SerialExample(QWidget *parent) :
 {
   ui->setupUi(this);
   this->setWindowFlags(Qt::MSWindowsFixedSizeDialogHint);  //Disable resize grip in MS windows
+
+  ui->replyConsole->setMaximumBlockCount(20000);
   ui->statusLine->setText(tr("Disconnected"));
 
   serial = new QSerialPort(this);
   serialDialog = new zSerialDialog;
 
   connect(serial, SIGNAL(error(QSerialPort::SerialPortError)), this, SLOT(handleError(QSerialPort::SerialPortError)));
-
   connect(serial, SIGNAL(readyRead()), this, SLOT(readSerialData()));
 }
 
@@ -51,11 +53,15 @@ void SerialExample::disconnectSerialPort()
 
 void SerialExample::writeSerialData(QByteArray data)
 {
-  data.append("/r"); // add newline
-  qDebug() << data;
-  serial->write(data);
-  serial->waitForBytesWritten(1000);
-  readSerialData();
+  if (serial->isOpen()) { // serial device open
+    data.append("/r"); // add newline
+    qDebug() << data;
+    serial->write(data);
+    serial->waitForBytesWritten(1000);
+    readSerialData();
+  } else {
+    ui->statusLine->setText(tr("No serial device open"));
+  }
 }
 
 void SerialExample::readSerialData()
@@ -70,7 +76,7 @@ void SerialExample::readSerialData()
 void SerialExample::handleError(QSerialPort::SerialPortError error)
 {
   if (error == QSerialPort::ResourceError) {
-    ui->statusBar->showMessage("Critical Error" + serial->errorString());
+    ui->statusLine->setText("Critical Error" + serial->errorString());
     disconnectSerialPort();
   }
 }

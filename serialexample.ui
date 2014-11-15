@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>345</width>
-    <height>374</height>
+    <width>343</width>
+    <height>409</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -31,19 +31,6 @@
     </property>
     <property name="frame">
      <bool>false</bool>
-    </property>
-    <property name="readOnly">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QTextEdit" name="replyConsole">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>180</y>
-      <width>321</width>
-      <height>111</height>
-     </rect>
     </property>
     <property name="readOnly">
      <bool>true</bool>
@@ -125,7 +112,7 @@
        <x>230</x>
        <y>11</y>
        <width>81</width>
-       <height>111</height>
+       <height>112</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -184,13 +171,23 @@
      </layout>
     </widget>
    </widget>
+   <widget class="QPlainTextEdit" name="replyConsole">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>180</y>
+      <width>321</width>
+      <height>151</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>345</width>
+     <width>343</width>
      <height>21</height>
     </rect>
    </property>
