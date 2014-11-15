@@ -31,16 +31,18 @@ private slots:
   void signalAdamToReadInputs();
   void handleError(QSerialPort::SerialPortError error);
 
-  //Menu bar actions
-  void on_actionExit_triggered();
-  void on_actionOpenPort_triggered();
-  void on_actionClosePort_triggered();
+  //Menu and tool bar actions
+  void on_actionConnect_triggered();
+  void on_actionDisconnect_triggered();
   void on_actionConfigure_triggered();
+  void on_actionExit_triggered();
 
   void on_UVOnButton_clicked();
   void on_LEDOnButton_clicked();
   void on_UVOffButton_clicked();
   void on_LEDOffButton_clicked();
+
+
 
 protected:
     void paintEvent(QPaintEvent *event);

@@ -100,18 +100,45 @@ void SerialExample::handleError(QSerialPort::SerialPortError error)
   }
 }
 
+//****************** Painted
+void SerialExample::paintEvent(QPaintEvent *event)
+{
+  Q_UNUSED(event);
+
+  QPoint indPos;
+  indPos.setX(this->size().width()*.5);
+  indPos.setY(this->size().height()*.7);
+
+  QRect indRect = QRect(0,0,78,35);
+  indRect.moveCenter(indPos);
+
+//  QPainter painter(this);
+
+//  ZLamp indDoor(indRect.translated(-indRect.width()*1.1, 0), QColor(Qt::green), door);
+//  indDoor.setText("Door");
+//  indDoor.Render(painter);
+
+//  ZLamp indLamp(indRect, QColor(Qt::yellow), lamp);
+//  indLamp.setText("Lamp");
+//  indLamp.Render(painter);
+
+//  ZLamp indUV(indRect.translated(indRect.width()*1.1, 0), QColor(Qt::magenta), uvOn);
+//  indUV.setText("UV");
+//  indUV.Render(painter);
+}
+
 //****************** Menu
 void SerialExample::on_actionExit_triggered()
 {
   QApplication::quit();
 }
 
-void SerialExample::on_actionOpenPort_triggered()
+void SerialExample::on_actionConnect_triggered()
 {
   openSerialPort();
 }
 
-void SerialExample::on_actionClosePort_triggered()
+void SerialExample::on_actionDisconnect_triggered()
 {
   closeSerialPort();
 }
@@ -143,29 +170,4 @@ void SerialExample::on_LEDOffButton_clicked()
   AdamCommand("#011100\r");
 }
 
-//****************** Painted
-void SerialExample::paintEvent(QPaintEvent *event)
-{
-  Q_UNUSED(event);
 
-  QPoint indPos;
-  indPos.setX(this->size().width()*.5);
-  indPos.setY(this->size().height()*.7);
-
-  QRect indRect = QRect(0,0,78,35);
-  indRect.moveCenter(indPos);
-
-//  QPainter painter(this);
-
-//  ZLamp indDoor(indRect.translated(-indRect.width()*1.1, 0), QColor(Qt::green), door);
-//  indDoor.setText("Door");
-//  indDoor.Render(painter);
-
-//  ZLamp indLamp(indRect, QColor(Qt::yellow), lamp);
-//  indLamp.setText("Lamp");
-//  indLamp.Render(painter);
-
-//  ZLamp indUV(indRect.translated(indRect.width()*1.1, 0), QColor(Qt::magenta), uvOn);
-//  indUV.setText("UV");
-//  indUV.Render(painter);
-}

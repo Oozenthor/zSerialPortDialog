@@ -23,3 +23,8 @@ HEADERS  += \
 FORMS    += \
     zserialdialog.ui \
     serialexample.ui
+
+OTHER_FILES +=
+
+RESOURCES += \
+    icons.qrc

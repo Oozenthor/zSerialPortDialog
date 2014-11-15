@@ -15,6 +15,7 @@ zSerialDialog::zSerialDialog(QWidget *parent) :
   fillPortParameters();
   fillPortInfo();
   loadProfileFromDisk(); // Get saved profile st startup
+  ui->applyButton->setFocus();
 }
 
 zSerialDialog::~zSerialDialog()
