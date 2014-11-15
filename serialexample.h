@@ -24,9 +24,9 @@ public:
   ~SerialExample();
 
 private slots:
-  void openSerialPort();
-  void closeSerialPort();
-  void AdamCommand(const QByteArray &data);
+  void connectSerialPort();
+  void disconnectSerialPort();
+  void writeSerialData(const QByteArray &data);
   void readData();
   void signalAdamToReadInputs();
   void handleError(QSerialPort::SerialPortError error);
@@ -37,12 +37,10 @@ private slots:
   void on_actionConfigure_triggered();
   void on_actionExit_triggered();
 
-  void on_UVOnButton_clicked();
-  void on_LEDOnButton_clicked();
-  void on_UVOffButton_clicked();
-  void on_LEDOffButton_clicked();
-
-
+  void on_command1Button_clicked();
+  void on_command2Button_clicked();
+  void on_command3Button_clicked();
+  void on_command4Button_clicked();
 
 protected:
     void paintEvent(QPaintEvent *event);

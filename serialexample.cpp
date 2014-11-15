@@ -25,12 +25,12 @@ SerialExample::SerialExample(QWidget *parent) :
 
 SerialExample::~SerialExample()
 {
-  closeSerialPort();
+  disconnectSerialPort();
   delete ui;
 }
 
 //****************** Serial Port Functions
-void SerialExample::openSerialPort()
+void SerialExample::connectSerialPort()
 {
   zSerialDialog::SerialProfile profile = serialDialog->profile();  // Get current serial profile
 
@@ -50,14 +50,14 @@ void SerialExample::openSerialPort()
   }
 }
 
-void SerialExample::closeSerialPort()
+void SerialExample::disconnectSerialPort()
 {
   timer->stop();
   serial->close();
   ui->statusLine->setText(tr("Disconnected"));
 }
 
-void SerialExample::AdamCommand(const QByteArray &data)
+void SerialExample::writeSerialData(const QByteArray &data)
 {
   serial->write(data);
   serial->waitForBytesWritten(1000);
@@ -67,7 +67,7 @@ void SerialExample::AdamCommand(const QByteArray &data)
 void SerialExample::signalAdamToReadInputs()
 {
   // Adam read inputs command: $016
-  AdamCommand("$016\r");
+  writeSerialData("$016\r");
 }
 
 void SerialExample::readData()
@@ -96,7 +96,7 @@ void SerialExample::handleError(QSerialPort::SerialPortError error)
 {
   if (error == QSerialPort::ResourceError) {
     ui->statusBar->showMessage("Critical Error" + serial->errorString());
-    closeSerialPort();
+    disconnectSerialPort();
   }
 }
 
@@ -135,12 +135,12 @@ void SerialExample::on_actionExit_triggered()
 
 void SerialExample::on_actionConnect_triggered()
 {
-  openSerialPort();
+  connectSerialPort();
 }
 
 void SerialExample::on_actionDisconnect_triggered()
 {
-  closeSerialPort();
+  disconnectSerialPort();
 }
 
 void SerialExample::on_actionConfigure_triggered()
@@ -150,24 +150,24 @@ void SerialExample::on_actionConfigure_triggered()
 }
 
 //****************** Buttons
-void SerialExample::on_UVOnButton_clicked()
+void SerialExample::on_command1Button_clicked()
 {
-    AdamCommand("#011001\r");
+    writeSerialData("#011001\r");
 }
 
-void SerialExample::on_UVOffButton_clicked()
+void SerialExample::on_command2Button_clicked()
 {
-    AdamCommand("#011000\r");
+    writeSerialData("#011000\r");
 }
 
-void SerialExample::on_LEDOnButton_clicked()
+void SerialExample::on_command3Button_clicked()
 {
-    AdamCommand("#011101\r");
+    writeSerialData("#011101\r");
 }
 
-void SerialExample::on_LEDOffButton_clicked()
+void SerialExample::on_command4Button_clicked()
 {
-  AdamCommand("#011100\r");
+  writeSerialData("#011100\r");
 }
 
 
