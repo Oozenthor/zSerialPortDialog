@@ -1,9 +1,12 @@
 #ifndef SERIALPORT_H
 #define SERIALPORT_H
 
-//#include <QMainWindow>
+#define MSG_TIME 1500
+#define MAX_CONSOLE 20000
+
+#include <QDebug>
+#include <QPlainTextEdit>
 #include <QtSerialPort/QSerialPort>
-#include <QTimer>
 #include "ui_serialexample.h"
 #include "zserialdialog.h"
 
@@ -38,12 +41,14 @@ private slots:
   void on_command3Button_clicked();
   void on_command4Button_clicked();
 
+  void on_actionClear_triggered();
+
 protected:
 
 private:
   Ui::SerialExample *ui;
   zSerialDialog *serialDialog;
-  QSerialPort *serial;
+  QSerialPort *serialPort;
 };
 
 #endif // SERIALPORT_H
