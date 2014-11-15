@@ -24,8 +24,7 @@ private slots:
   void connectSerialPort();
   void disconnectSerialPort();
   void writeSerialData(QByteArray data);
-  void readData();
-  void signalAdamToReadInputs();
+  void readSerialData();
   void handleError(QSerialPort::SerialPortError error);
 
   //Menu and tool bar actions
@@ -45,7 +44,6 @@ private:
   Ui::SerialExample *ui;
   zSerialDialog *serialDialog;
   QSerialPort *serial;
-  QTimer *timer;
 };
 
 #endif // SERIALPORT_H

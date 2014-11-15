@@ -9,18 +9,12 @@ SerialExample::SerialExample(QWidget *parent) :
   this->setWindowFlags(Qt::MSWindowsFixedSizeDialogHint);  //Disable resize grip in MS windows
   ui->statusLine->setText(tr("Disconnected"));
 
-
   serial = new QSerialPort(this);
   serialDialog = new zSerialDialog;
 
   connect(serial, SIGNAL(error(QSerialPort::SerialPortError)), this, SLOT(handleError(QSerialPort::SerialPortError)));
 
-//  timer = new QTimer(this);
-//  connect(timer, SIGNAL(timeout()), this, SLOT(signalAdamToReadInputs()));
-
-  //connect(serial, SIGNAL(readyRead()), this, SLOT(readData()));
-  //connect(serial, SIGNAL(bytesWritten(qint64)), this, SLOT(readData()));
-  //connect(serial, SIGNAL(getData(QByteArray)), this, SLOT(writeData(QByteArray)));
+  connect(serial, SIGNAL(readyRead()), this, SLOT(readSerialData()));
 }
 
 SerialExample::~SerialExample()
@@ -44,7 +38,6 @@ void SerialExample::connectSerialPort()
     ui->statusLine->setText(tr("%1 : %2, %3, %4, %5, %6")
                                .arg(profile.name).arg(profile.stringBaudRate).arg(profile.stringDataBits)
                                .arg(profile.stringParity).arg(profile.stringStopBits).arg(profile.stringFlowControl));
-//    timer->start(500);
   } else {
     ui->statusLine->setText(tr("Serial error: ") + serial->errorString());
   }
@@ -52,7 +45,6 @@ void SerialExample::connectSerialPort()
 
 void SerialExample::disconnectSerialPort()
 {
-//  timer->stop();
   serial->close();
   ui->statusLine->setText(tr("Disconnected"));
 }
@@ -63,35 +55,16 @@ void SerialExample::writeSerialData(QByteArray data)
   qDebug() << data;
   serial->write(data);
   serial->waitForBytesWritten(1000);
-  readData();
+  readSerialData();
 }
 
-void SerialExample::signalAdamToReadInputs()
-{
-  // Adam read inputs command: $016
-  writeSerialData("$016\r");
-}
-
-void SerialExample::readData()
+void SerialExample::readSerialData()
 {
     QByteArray dataIn = serial->readAll();
-//    if (dataIn[0] == '!') {
-//      // !xx7F00 for door open
-//      // !xx7E00 for door closed
-//      bool ok;
-//      QByteArray baOut = dataIn.mid(2,1);
-//      int hexOut = baOut.toInt(&ok, 16);     // hex == 255, ok == true
-//      QByteArray baIn = dataIn.mid(4,1);
-//      int hexIn = baIn.toInt(&ok, 16);     // hex == 255, ok == true
-//      qDebug() << "+" << dataIn << ":" << baOut << baIn;
-//      uvOn = static_cast<bool>(bTrue(hexOut, 0));
-//      lamp = static_cast<bool>(bTrue(hexOut, 1));
-//      door = static_cast<bool>(bTrue(hexIn, 0));
-//      QWidget::update();
+    ui->replyConsole->insertPlainText(dataIn);
+//    if (dataIn[0] == '>') {
+//        ui->statusBar->showMessage("Command OK", 2000);
 //    }
-    if (dataIn[0] == '>') {
-        ui->statusBar->showMessage("Command OK", 2000);
-    }
 }
 
 void SerialExample::handleError(QSerialPort::SerialPortError error)
@@ -144,5 +117,3 @@ void SerialExample::on_command4Button_clicked()
 {
   writeSerialData(ui->command4Edit->text().toLocal8Bit());
 }
-
-
