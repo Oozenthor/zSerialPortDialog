@@ -1,14 +1,11 @@
 #ifndef SERIALPORT_H
 #define SERIALPORT_H
 
-#include <QMainWindow>
+//#include <QMainWindow>
 #include <QtSerialPort/QSerialPort>
-#include <QPainter>
 #include <QTimer>
 #include "ui_serialexample.h"
 #include "zserialdialog.h"
-//#include "zlamp.h"
-//#include "bits.h"
 
 namespace Ui {
 class SerialExample;
@@ -26,7 +23,7 @@ public:
 private slots:
   void connectSerialPort();
   void disconnectSerialPort();
-  void writeSerialData(const QByteArray &data);
+  void writeSerialData(QByteArray data);
   void readData();
   void signalAdamToReadInputs();
   void handleError(QSerialPort::SerialPortError error);
@@ -43,17 +40,12 @@ private slots:
   void on_command4Button_clicked();
 
 protected:
-    void paintEvent(QPaintEvent *event);
 
 private:
   Ui::SerialExample *ui;
   zSerialDialog *serialDialog;
   QSerialPort *serial;
   QTimer *timer;
-
-  bool door;
-  bool lamp;
-  bool uvOn;
 };
 
 #endif // SERIALPORT_H
