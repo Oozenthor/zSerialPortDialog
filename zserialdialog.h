@@ -12,7 +12,7 @@ namespace Ui {
 class zSerialDialog;
 }
 
-class zSerialDialog : public QDialog
+class ZSerialDialog : public QDialog
 {
   Q_OBJECT
 
@@ -31,8 +31,8 @@ public:
     QString stringFlowControl;
   };
 
-  explicit zSerialDialog(QWidget *parent = 0);
-  ~zSerialDialog();
+  explicit ZSerialDialog(QWidget *parent = 0);
+  ~ZSerialDialog();
 
   SerialProfile profile() const;
 

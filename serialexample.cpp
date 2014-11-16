@@ -13,7 +13,7 @@ SerialExample::SerialExample(QWidget *parent) :
 
   serialPort = new QSerialPort(this);
 
-  serialDialog = new zSerialDialog;
+  serialDialog = new ZSerialDialog;
   serialDialog->setWindowModality(Qt::ApplicationModal); // Blocks input to all other windows.
 
   connect(serialPort, SIGNAL(error(QSerialPort::SerialPortError)), this, SLOT(handleError(QSerialPort::SerialPortError)));
@@ -32,7 +32,7 @@ void SerialExample::connectSerialPort()
   if (serialPort->isOpen()) { // serial device open
     ui->statusBar->showMessage("Serial device already connected!", MSG_TIME);
   } else {
-    zSerialDialog::SerialProfile profile = serialDialog->profile();  // Get current serial profile
+    ZSerialDialog::SerialProfile profile = serialDialog->profile();  // Get current serial profile
 
     serialPort->setPortName(profile.name);
     serialPort->setBaudRate(profile.baudRate);

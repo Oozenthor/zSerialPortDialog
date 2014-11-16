@@ -1,6 +1,6 @@
 #include "zserialdialog.h"
 
-zSerialDialog::zSerialDialog(QWidget *parent) :
+ZSerialDialog::ZSerialDialog(QWidget *parent) :
   QDialog(parent),
   ui(new Ui::zSerialDialog)
 {
@@ -18,17 +18,17 @@ zSerialDialog::zSerialDialog(QWidget *parent) :
   ui->applyButton->setFocus();
 }
 
-zSerialDialog::~zSerialDialog()
+ZSerialDialog::~ZSerialDialog()
 {
   delete ui;
 }
 
-zSerialDialog::SerialProfile zSerialDialog::profile() const // Return a valid communication port set of values
+ZSerialDialog::SerialProfile ZSerialDialog::profile() const // Return a valid communication port set of values
 {
   return currentProfile;
 }
 
-void zSerialDialog::fillPortInfo() // Collect the manufacturer information for each connected serial device.
+void ZSerialDialog::fillPortInfo() // Collect the manufacturer information for each connected serial device.
 {
   ui->serialPortInfoListBox->clear();
   static const QString blankString = QObject::tr("N/A");
@@ -49,7 +49,7 @@ void zSerialDialog::fillPortInfo() // Collect the manufacturer information for e
   }
 }
 
-void zSerialDialog::showPortInfo(int idx) // Show the manufacturer information for each connected serial device.
+void ZSerialDialog::showPortInfo(int idx) // Show the manufacturer information for each connected serial device.
 {
   if (idx != -1) {
     QStringList list = ui->serialPortInfoListBox->itemData(idx).toStringList();
@@ -61,7 +61,7 @@ void zSerialDialog::showPortInfo(int idx) // Show the manufacturer information f
   }
 }
 
-void zSerialDialog::fillPortParameters()  // Fill the list boxes with all possible serial port settings
+void ZSerialDialog::fillPortParameters()  // Fill the list boxes with all possible serial port settings
 {
   ui->baudRateBox->addItem(QStringLiteral("1200"), QSerialPort::Baud1200);
   ui->baudRateBox->addItem(QStringLiteral("2400"), QSerialPort::Baud2400);
@@ -95,7 +95,7 @@ void zSerialDialog::fillPortParameters()  // Fill the list boxes with all possib
 }
 
 
-void zSerialDialog::updateProfile()  // Read all list boxes and set the communication profile based on the contents.
+void ZSerialDialog::updateProfile()  // Read all list boxes and set the communication profile based on the contents.
 { // Stringxxxxx entries are for use with text objects to display the profile.
   currentProfile.name = ui->serialPortInfoListBox->currentText();
 
@@ -115,7 +115,7 @@ void zSerialDialog::updateProfile()  // Read all list boxes and set the communic
   currentProfile.stringFlowControl = ui->flowControlBox->currentText();
 }
 
-void zSerialDialog::saveProfileToDisk()  // Read current list box values and save them to disk
+void ZSerialDialog::saveProfileToDisk()  // Read current list box values and save them to disk
 {
   QSettings setting("SerialProfile.ini", QSettings::IniFormat);
   setting.beginGroup("SerialProfile");
@@ -128,7 +128,7 @@ void zSerialDialog::saveProfileToDisk()  // Read current list box values and sav
   setting.endGroup();
 }
 
-void zSerialDialog::loadProfileFromDisk()  // Read saved profile and restore all list box selections
+void ZSerialDialog::loadProfileFromDisk()  // Read saved profile and restore all list box selections
 {
   QSettings setting("SerialProfile.ini", QSettings::IniFormat);
   setting.beginGroup("SerialProfile");
@@ -148,14 +148,14 @@ void zSerialDialog::loadProfileFromDisk()  // Read saved profile and restore all
   updateProfile();
 }
 
-void zSerialDialog::on_applyButton_clicked()  // Accept current selection set
+void ZSerialDialog::on_applyButton_clicked()  // Accept current selection set
 {
   updateProfile();
   saveProfileToDisk();
   hide();
 }
 
-void zSerialDialog::on_refreshButton_clicked() // Refresh port list (new ports might be added i.e. USB to serial)
+void ZSerialDialog::on_refreshButton_clicked() // Refresh port list (new ports might be added i.e. USB to serial)
 {
   fillPortInfo();
 }

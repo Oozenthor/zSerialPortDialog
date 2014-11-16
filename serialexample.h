@@ -13,7 +13,7 @@
 namespace Ui {
 class SerialExample;
 }
-class zSerialDialog;
+class ZSerialDialog;
 
 class SerialExample : public QMainWindow
 {
@@ -47,7 +47,7 @@ protected:
 
 private:
   Ui::SerialExample *ui;
-  zSerialDialog *serialDialog;
+  ZSerialDialog *serialDialog;
   QSerialPort *serialPort;
 };
 
