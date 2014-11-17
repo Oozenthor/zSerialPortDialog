@@ -9,6 +9,7 @@ SerialExample::SerialExample(QWidget *parent) :
   this->setWindowFlags(Qt::MSWindowsFixedSizeDialogHint);  //Disable resize grip in MS windows
 
   ui->replyConsole->setMaximumBlockCount(MAX_CONSOLE);
+//  ui->replyConsole->document()->size().height();
   ui->statusLine->setText("Disconnected");
 
   serialPort = new QSerialPort(this);
@@ -80,6 +81,13 @@ void SerialExample::writeSerialData(QByteArray data)
 void SerialExample::readSerialData()
 {
   ui->replyConsole->insertPlainText(serialPort->readAll());
+
+  QTextCursor c = ui->replyConsole->textCursor();
+  c.movePosition(QTextCursor::End);
+  ui->replyConsole->setTextCursor(c);
+
+//  ui->replyConsole->ensureCursorVisible();
+
 }
 
 void SerialExample::handleError(QSerialPort::SerialPortError error)

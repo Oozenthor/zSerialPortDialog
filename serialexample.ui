@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>SerialComms</string>
+   <string>Serial Port</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLineEdit" name="statusLine">
@@ -179,6 +179,9 @@
       <width>321</width>
       <height>151</height>
      </rect>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::TextSelectableByMouse</set>
     </property>
    </widget>
   </widget>
