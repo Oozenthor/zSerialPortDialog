@@ -24,7 +24,8 @@ FORMS    += \
     zserialdialog.ui \
     serialexample.ui
 
-OTHER_FILES +=
+OTHER_FILES += \
+    LICENSE
 
 RESOURCES += \
     icons.qrc
