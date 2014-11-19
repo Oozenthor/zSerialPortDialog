@@ -67,7 +67,7 @@ void SerialExample::writeSerialData(QByteArray data)
 {
   if (serialPort->isOpen()) { // serial device open
     ui->statusBar->showMessage("Sending: " + data, MSG_TIME);
-    data.append("/r"); // add newline
+    data.append("\r"); // add newline
     qDebug() << data;
     serialPort->write(data);
     serialPort->waitForBytesWritten(1000); // Provide serial device blocking.
